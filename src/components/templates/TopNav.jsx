@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import instance from "../../utils/axios";
+import { NO_IMAGE_URL, TMDB_MOVIE_IMAGE } from "../../utils/constant";
 
 const TopNav = () => {
   const [query, setquery] = useState("");
@@ -20,12 +21,9 @@ const TopNav = () => {
     const t = setTimeout(() => {
       searches && getSearches();
     }, 500);
-  
-    return () => clearTimeout(t);
-    
-  }, [query])
-  
 
+    return () => clearTimeout(t);
+  }, [query]);
 
   return (
     <div className=" w-full h-[10vh] relative  text-zinc-400 flex justify-start items-center pl-[16%] lg:pl-[20%]">
@@ -54,10 +52,10 @@ const TopNav = () => {
               className="w-[10vh] h-[10vh] rounded-lg mr-5 object-cover shadow-lg"
               src={
                 s.backdrop_path || s.poster_path || s.profile_path
-                  ? `https://image.tmdb.org/t/p/original/${
-                      s.backdrop_path || s.poster_path || s.profile_path
-                    }`
-                  : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRsNGGjrfSqqv8UjL18xS4YypbK-q7po_8oVQ&usqp=CAU"
+                  ? TMDB_MOVIE_IMAGE + s.backdrop_path ||
+                    s.poster_path ||
+                    s.profile_path
+                  : NO_IMAGE_URL
               }
               alt="bgmiang "
             />
