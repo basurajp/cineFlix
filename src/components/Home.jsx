@@ -6,6 +6,7 @@ import Header from "./templates/Header";
 import HoriZontalcards from "./templates/HoriZontalcards";
 import DropDown from "./templates/DropDown";
 import Loading from "./templates/Loading";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   document.title = "cineFlix | HomePage";
@@ -52,7 +53,7 @@ const Home = () => {
         <Header data={wallpaper} />
 
         <div className="flex items-center justify-between px-8 mt-4 ">
-          <h1 className="text-2xl font-semibold text-zinc-400 ">Trending</h1>
+          <h1 className="text-2xl font-semibold text-zinc-400 "><Link to={'/trending'}>Trending</Link></h1>
 
           <DropDown
             title={"Filter"}
