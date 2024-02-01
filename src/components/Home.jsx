@@ -5,6 +5,7 @@ import instance from "../utils/axios";
 import Header from "./templates/Header";
 import HoriZontalcards from "./templates/HoriZontalcards";
 import DropDown from "./templates/DropDown";
+import Loading from "./templates/Loading";
 
 const Home = () => {
   document.title = "cineFlix | HomePage";
@@ -50,8 +51,8 @@ const Home = () => {
         <TopNav />
         <Header data={wallpaper} />
 
-        <div className=" flex items-center justify-between px-8 mt-4">
-          <h1 className="text-2xl text-zinc-400  font-semibold ">Trending</h1>
+        <div className="flex items-center justify-between px-8 mt-4 ">
+          <h1 className="text-2xl font-semibold text-zinc-400 ">Trending</h1>
 
           <DropDown
             title={"Filter"}
@@ -64,7 +65,7 @@ const Home = () => {
       </div>
     </>
   ) : (
-    <>Loading</>
+    <Loading />
   );
 };
 
