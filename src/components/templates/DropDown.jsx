@@ -8,7 +8,7 @@ const DropDown = ({ title, options ,func}) => {
       <select onChange={ (e)=>func(e.target.value)} className="px-2 py-1 rounded-lg" defaultValue="0" name="format" id="format" >
         <option value="0" disabled>
           {title}
-        </option>
+        </option> 
 
         {options.map((o, i) => (
           <option className="" key={i} value={o}>{o.toUpperCase()}</option>
