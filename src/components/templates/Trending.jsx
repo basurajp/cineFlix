@@ -1,12 +1,33 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TopNav from "./TopNav";
 import DropDown from "./DropDown";
+import instance from "../../utils/axios";
+import Cards from "./Cards";
+import Loading from "./Loading";
 
 const Trending = () => {
   const navigate = useNavigate();
-  return (
-    <div className="w-screen h-screen px-[5%] ">
+  const [category, setcategory] = useState("all");
+  const [duration, setduration] = useState("day");
+  const [trending, settrending] = useState(null);
+
+  const gerTrending = async () => {
+    try {
+      const { data } = await instance.get(`/trending/${category}/${duration}`);
+
+      settrending(data.results);
+    } catch (error) {
+      console.log("Error : ", error);
+    }
+  };
+
+  useEffect(() => {
+    gerTrending();
+  }, [duration, category]);
+
+  return trending ? (
+    <div className=" h-screen px-[5%] overflow-y-auto max-w-screen-xl shadow-lg mx-auto ">
       <div className="w-full h-[10vh]  flex items-center justify-between ">
         <h1 className="text-xl font-semibold text-zinc-400">
           <i
@@ -17,11 +38,22 @@ const Trending = () => {
         </h1>
 
         <div className="flex gap-3">
-          <DropDown title={"Category"} options={["Movie", "tv", "all"]} />
-          <DropDown title={"Durtion"} options={["week", "days"]} />
+          <DropDown
+            title={"Category"}
+            options={["Movie", "tv", "all"]}
+            func={setcategory}
+          />
+          <DropDown
+            title={"Duration"}
+            options={["week", "days"]}
+            func={setcategory}
+          />
         </div>
       </div>
+      <Cards data={trending} />
     </div>
+  ) : (
+    <Loading />
   );
 };
 
