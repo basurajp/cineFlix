@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { TMDB_MOVIE_IMAGE } from "../../utils/constant";
+import { NO_IMAGE_URL, TMDB_MOVIE_IMAGE } from "../../utils/constant";
 import Loading from "./Loading";
 
 const Cards = ({ data, title }) => {
@@ -13,7 +13,7 @@ const Cards = ({ data, title }) => {
             src={
               TMDB_MOVIE_IMAGE + item.backdrop_path ||
               item.poster_path ||
-              item.profile_path
+              item.profile_path || NO_IMAGE_URL
             }
             alt="card_img"
           />
