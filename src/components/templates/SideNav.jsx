@@ -13,29 +13,41 @@ const SideNav = () => {
           New Feeds
         </h1>
 
-        <Link to={'/trending'} className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200">
+        <Link
+          to={"/trending"}
+          className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200"
+        >
           <i className="ri-fire-fill "></i>
           Trending
         </Link>
-        <Link to={'/popular'} className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200">
+        <Link
+          to={"/popular"}
+          className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200"
+        >
           <i className="mr-2 ri-bard-fill"></i>
           Popular
         </Link>
-        <Link to={'/movies'} className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200">
+        <Link
+          to={"/movies"}
+          className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200"
+        >
           <i className="mr-2 ri-movie-2-fill"></i>
           Movies
         </Link>
-        <Link to={'/tvshows'} className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200">
+        <Link
+          to={"/tvshows"}
+          className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200"
+        >
           <i className="mr-2 ri-tv-2-fill"></i>
           Tv Shows
         </Link>
-        <Link to={'/people'} className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200">
+        {/* <Link to={'/people'} className="hover:bg-[#6556CD] hover:text-white p-4 rounded-lg duration-200">
           <i className="mr-2 ri-group-fill"></i>
           People
-        </Link>
+        </Link> */}
       </nav>
 
-      <hr className="border-none h-[1px] bg-zinc-400 mt-2" />
+      {/* <hr className="border-none h-[1px] bg-zinc-400 mt-2" />
 
       <nav className="flex flex-col gap-3 text-xl text-zinc-400">
         <h1 className="mt-6 mb-3 text-xl font-semibold text-white ">
@@ -50,7 +62,7 @@ const SideNav = () => {
           <i className="mr-2 ri-phone-fill"></i>
           Contact
         </Link>
-      </nav>
+      </nav> */}
     </div>
   );
 };
