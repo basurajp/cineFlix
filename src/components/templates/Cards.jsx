@@ -1,9 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { TMDB_MOVIE_IMAGE } from "../../utils/constant";
+import Loading from "./Loading";
 
 const Cards = ({ data, title }) => {
-  return (
+  return data ? (
     <div className="flex flex-wrap w-full mt-[2%] ml-4 lg:ml-9">
       {data.map((item, index) => (
         <Link className="w-[20vh]  lg:w-[20%] mr-[5%]" key={index}>
@@ -22,7 +23,7 @@ const Cards = ({ data, title }) => {
         </Link>
       ))}
     </div>
-  );
+  ): <Loading />
 };
 
 export default Cards;

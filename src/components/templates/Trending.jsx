@@ -10,7 +10,7 @@ const Trending = () => {
   const navigate = useNavigate();
   const [category, setcategory] = useState("all");
   const [duration, setduration] = useState("day");
-  const [trending, settrending] = useState(null);
+  const [trending, settrending] = useState([]);
 
   const gerTrending = async () => {
     try {
@@ -26,7 +26,7 @@ const Trending = () => {
     gerTrending();
   }, [duration, category]);
 
-  return trending ? (
+  return trending.length > 0 ? (
     <div className=" h-screen px-[5%] overflow-y-auto max-w-screen-xl shadow-lg mx-auto ">
       <div className="w-full h-[10vh]  flex items-center justify-between ">
         <h1 className="text-xl font-semibold text-zinc-400">
@@ -40,13 +40,13 @@ const Trending = () => {
         <div className="flex gap-3">
           <DropDown
             title={"Category"}
-            options={["Movie", "tv", "all"]}
+            options={["movie", "tv", "all"]}
             func={setcategory}
           />
           <DropDown
             title={"Duration"}
-            options={["week", "days"]}
-            func={setcategory}
+            options={["week", "day"]}
+            func={setduration}
           />
         </div>
       </div>
