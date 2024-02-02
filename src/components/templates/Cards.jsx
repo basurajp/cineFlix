@@ -11,12 +11,10 @@ const Cards = ({ data, title }) => {
           <img
             className="h-[33vh]  lg:h-[50vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)] "
             src={
-              item.backdrop_path || item.poster_path || item.profile_path
-              ? TMDB_MOVIE_IMAGE + item.backdrop_path ||
-                item.poster_path ||
-                item.profile_path
-              : NO_IMAGE_URL
+              TMDB_MOVIE_IMAGE + 
+              (item.profile_path || item.poster_path || item.backdrop_path)
             }
+            
             alt="card_img"
           />
           <h1 className="my-3 text-2xl font-semibold text-zinc-200 ">
