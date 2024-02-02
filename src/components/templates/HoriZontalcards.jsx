@@ -3,18 +3,15 @@ import { Link } from "react-router-dom";
 import { TMDB_MOVIE_IMAGE } from "../../utils/constant";
 import DropDown from "./DropDown";
 
-const HoriZontalcards = ({ data }) => {
-
-
-
+const HoriZontalcards = ({ data ,title}) => {
 
   return (
-    <div className="w-full  p-6    ">
+    <div className="w-full p-6 ">
      
 
-      <div className="w-full flex  overflow-x-auto pb-5  ">
+      <div className="flex w-full pb-5 overflow-x-auto ">
         {data.map((d, i) => (
-          <div
+          <Link to={`/${d.media_type}/details/${d.id}`}
             key={i}
             className="min-w-[50%] lg:min-w-[15%] h-[45vh] lg:h-[55vh]  mr-2 bg-zinc-900 m-1 rounded-md  overflow-hidden   "
           >
@@ -29,8 +26,7 @@ const HoriZontalcards = ({ data }) => {
             />
             <div className="text-white p-3 lg:p-2 h-[45%] ">
               <h1
-                className="text-xl font-bold lg:leading-5 lg:mb-2
-                     "
+                className="text-xl font-bold lg:leading-5 lg:mb-2 "
               >
                 {d.original_name || d.name || d.title}
               </h1>
@@ -40,7 +36,7 @@ const HoriZontalcards = ({ data }) => {
               </p>
             </div>
             
-          </div>
+          </Link>
         ))}
       </div>
     </div>

@@ -3,7 +3,6 @@ import { TMDB_MOVIE_IMAGE } from "../../utils/constant";
 import { Link } from "react-router-dom";
 
 const Header = ({ data }) => {
-
   return (
     <div
       style={{
@@ -15,7 +14,7 @@ const Header = ({ data }) => {
             }`,
         backgroundPosition: "center",
         backgroundSize: "cover",
-        backgroundRepeat:'no-repeat'
+        backgroundRepeat: "no-repeat",
       }}
       className="w-full lg:h-[60vh] h-[50vh] flex flex-col justify-end pb-[15%] pl-[10%] lg:px-[8%] lg:py-[6%] text-white items-start"
     >
@@ -24,15 +23,24 @@ const Header = ({ data }) => {
       </h1>
       <p className="w-3/4 lg:w-[60%] mt-3">
         {data.overview.slice(0, 100)} ...
-        <Link className="text-blue-600">more</Link>
+        <Link
+          to={`/${data.media_type}/details/${data.id}`}
+          className="text-blue-600"
+        >
+          more
+        </Link>
       </p>
 
-      <p className="mt-2 mb-2 flex gap-2">
-      <i className="text-yellow-500 ri-megaphone-fill "></i>{data.release_date || 'No Info'}
-        
-        <i className="text-yellow-500 ri-movie-2-fill "></i>{data.media_type.toUpperCase()}
-        </p>
-        <Link className="p-4 rounded-lg font-semibold  mt-3 bg-[#6556CD]">Watch Trailer </Link>
+      <p className="flex gap-2 mt-2 mb-2">
+        <i className="text-yellow-500 ri-megaphone-fill "></i>
+        {data.release_date || "No Info"}
+
+        <i className="text-yellow-500 ri-movie-2-fill "></i>
+        {data.media_type.toUpperCase()}
+      </p>
+      <Link className="p-4 rounded-lg font-semibold  mt-3 bg-[#6556CD]">
+        Watch Trailer{" "}
+      </Link>
     </div>
   );
 };

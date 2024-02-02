@@ -20,7 +20,7 @@ const Trending = () => {
       const { data } = await instance.get(
         `/trending/${category}/${duration}?page=${page}`
       );
-      
+
       if (data.results.length > 0) {
         settrending((prev) => [...prev, ...data.results]);
         setpage(page + 1);
@@ -47,8 +47,6 @@ const Trending = () => {
   useEffect(() => {
     refreshHandler();
   }, [duration, category]);
-
-  
 
   return trending.length > 0 ? (
     <div className="max-w-screen-xl mx-auto shadow-lg ">

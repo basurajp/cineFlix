@@ -71,7 +71,7 @@ const Popular = () => {
         next={getPopular}
         hasMore={hasMore}
       >
-        <Cards data={popular} />
+        <Cards data={popular} title={category}  />
       </InfiniteScroll>
     </div>
   ) : (

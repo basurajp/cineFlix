@@ -62,7 +62,7 @@ const Home = () => {
           />
         </div>
 
-        <HoriZontalcards data={trending} func={setcategeory} />
+        <HoriZontalcards data={trending} func={setcategeory} title={categeory} />
       </div>
     </>
   ) : (
