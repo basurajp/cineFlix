@@ -1,12 +1,13 @@
-import { useLocation } from "react-router-dom";
+import { Outlet, useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
 import { asyncLoadMovies } from "../../store/actions/movieAction";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { removeMovie } from "../../store/reducers/movieSlice";
 import { NO_IMAGE_URL, TMDB_MOVIE_IMAGE } from "../../utils/constant";
 import Loading from "./Loading";
+import HoriZontalcards from "./HoriZontalcards";
 
 const MovieDetails = () => {
   const { info } = useSelector((state) => state.movie);
@@ -17,11 +18,11 @@ const MovieDetails = () => {
 
   useEffect(() => {
     dispatch(asyncLoadMovies(id));
-  }, []);
+  }, [id]);
 
   return info ? (
     <div
-      className="w-screen min-h-screen px-[10%]  pt-5 "
+      className="w-screen min-h-screen px-[3%]  pt-5 relative"
       style={{
         background: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)) , url(
             ${
@@ -63,9 +64,7 @@ const MovieDetails = () => {
           IMDB
         </a>
       </nav>
-
       {/* part 2 poster and details  */}
-
       <div className="flex-col w-full lg:flex-row">
         <img
           className="h-[33vh] w-full  lg:h-[60vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
@@ -116,9 +115,7 @@ const MovieDetails = () => {
           <p>{info.detail.overview}</p>
         </div>
       </div>
-
       {/* part3 avibl on plat form  */}
-
       <div className="lg:w-[80%]  w-full mt-6 flex flex-col gap-3  ">
         {info.watchProviders && info.watchProviders.flatrate && (
           <div className="flex items-center gap-5 font-semibold text-white ">
@@ -157,7 +154,7 @@ const MovieDetails = () => {
         )}
 
         {info.watchProviders && info.watchProviders.buy && (
-          <div className="flex items-center gap-5 font-semibold text-white">
+          <div className="flex items-center gap-5 mb-8 font-semibold text-white">
             <h1>Availbe to buy </h1>
 
             {info.watchProviders &&
@@ -174,7 +171,16 @@ const MovieDetails = () => {
           </div>
         )}
       </div>
+      <hr />
       {/* part 3 end here  */}
+      {/* part 4 start here recommendaion and smililart stuff  */}
+      <h1 className="pl-6 mt-4 text-2xl font-semibold text-white">
+        Recommendation & Similar{" "}
+      </h1>
+      <HoriZontalcards
+        data={info.recommendations ? info.recommendations : info.similar}
+      />
+      <Outlet />
     </div>
   ) : (
     <Loading />
