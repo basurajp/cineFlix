@@ -4,6 +4,7 @@ import Home from "./components/Home";
 import Loading from "./components/templates/Loading";
 import Trending from "./components/templates/Trending";
 import Popular from "./components/templates/Popular";
+import Movies from "./components/templates/Movies";
 
 const App = () => {
   return (
@@ -12,6 +13,7 @@ const App = () => {
         <Route path="/" element={<Home />} />
         <Route path="/trending" element={<Trending />} />
         <Route path="/popular" element={<Popular />} />
+        <Route path="/movies" element={<Movies/>} />
       </Routes>
     </div>
   );
