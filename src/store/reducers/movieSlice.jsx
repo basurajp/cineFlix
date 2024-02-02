@@ -10,11 +10,11 @@ const movieSlice = createSlice({
       state.info = action.payload;
     },
   },
-  removeMovie: () => {
+  removeMovie: (state) => {
     state.info = null;
   },
 });
 
 export const { loadMovie, removeMovie } = movieSlice.actions;
-
 export default movieSlice.reducer;
+// export const { loadMovie, removeMovie } = movieSlice.actions;
