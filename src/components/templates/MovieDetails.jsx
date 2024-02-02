@@ -106,7 +106,7 @@ const MovieDetails = () => {
             to={`${pathname}/trailer`}
             className="py-5 bg-[#6556cd] rounded-lg px-10"
           >
-            <i class="ri-play-fill mr-2"></i>Play Trailer{" "}
+            <i className="mr-2 ri-play-fill"></i>Play Trailer{" "}
           </Link>
 
           <h1 className="mt-10 text-xl font-semibold">{info.detail.tagline}</h1>
