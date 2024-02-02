@@ -1,11 +1,216 @@
-import React from 'react'
+import { Outlet, useLocation, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { NO_IMAGE_URL, TMDB_MOVIE_IMAGE } from "../../utils/constant";
+import Loading from "./Loading";
+import HoriZontalcards from "./HoriZontalcards";
+import { asyncLoadtvs } from "../../store/actions/tvAction";
 
 const TvDetails = () => {
-  return (
-    <div>
-      
-    </div>
-  )
-}
+  const { info } = useSelector((state) => state.tv);
+  const navigate = useNavigate();
+  const { id } = useParams();
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
-export default TvDetails
+  useEffect(() => {
+    dispatch(asyncLoadtvs(id));
+  }, [id]);
+  return info ? (
+    <div
+      className="w-screen min-h-screen px-[3%]  pt-5 relative"
+      style={{
+        background: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)) , url(
+            ${
+              TMDB_MOVIE_IMAGE + info.detail.backdrop_path ||
+              info.detail.poster_path ||
+              info.detail.profile_path
+            }`,
+        backgroundPosition: "center",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      {/* part one is done  */}
+      <nav className="flex w-full gap-10 text-2xl text-zinc-100 h-[10vh] items-center">
+        <Link
+          onClick={() => navigate(-1)}
+          className="text-2xl mr-2 ri-arrow-left-line hover:text-[#6556CD] duration-100"
+        ></Link>
+
+        <a
+          target="_blank"
+          href={
+            info.detail.homepage ||
+            `https://www.imdb.com/title/${info.detail.imdb_id}/`
+          }
+        >
+          <i className="ri-external-link-fill"></i>
+        </a>
+        <a
+          target="_blank"
+          href={`https://www.wikidata.org/wiki/${info.externalId.wikidata_id}`}
+        >
+          <i className="ri-earth-fill"></i>
+        </a>
+        <a
+          target="_blank"
+          href={`https://www.imdb.com/title/${info.detail.imdb_id}/`}
+        >
+          IMDB
+        </a>
+      </nav>
+      {/* part 2 poster and details  */}
+      <div className="flex-col w-full lg:flex-row">
+        <img
+          className="h-[33vh] w-full  lg:h-[60vh] object-contain shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
+          src={
+            TMDB_MOVIE_IMAGE +
+            (info.detail.profile_path ||
+              info.detail.poster_path ||
+              info.detail.backdrop_path ||
+              NO_IMAGE_URL)
+          }
+          alt="image"
+        />
+
+        <div className="text-white content">
+          <h1 className="mt-2 text-3xl font-black lg:text-5xl ">
+            {info.detail.original_name || info.detail.name || info.detail.title}
+
+            <small className="ml-2 text-[1em] font-semibold text-zinc-200 lg:text-2xl ">
+              ({info.detail.first_air_date})
+            </small>
+          </h1>
+
+          <div className="flex flex-wrap items-center gap-2 mt-2 mb-10 text-white">
+            <span>
+              {info.detail.vote_average && (
+                <div className="text-white text-xl w-[2vh] h-[2vh] p-7  rounded-full font-semibold flex justify-center items-center bg-yellow-600 -right-[6%] lg:-right-[15%]  bottom-[45%]">
+                  {(info.detail.vote_average * 10).toFixed()} <sup>%</sup>
+                </div>
+              )}
+            </span>
+
+            <h1> User Score </h1>
+            <h1>{info.detail.release_date}</h1>
+            <h1>{info.detail.genres.map((g, i) => g.name).join(",")}</h1>
+            <h1>{info.detail.runtime} min</h1>
+          </div>
+
+          <Link
+            to={`${pathname}/trailer`}
+            className="py-5 bg-[#6556cd] rounded-lg px-10"
+          >
+            <i className="mr-2 ri-play-fill"></i>Play Trailer{" "}
+          </Link>
+
+          <h1 className="mt-10 text-xl font-semibold">{info.detail.tagline}</h1>
+
+          <h1 className="text-xl font-semibold ">Overview</h1>
+          <p>{info.detail.overview}</p>
+        </div>
+      </div>
+      {/* part3 avibl on plat form  */}
+      <div className="lg:w-[80%]  w-full mt-6 flex flex-col gap-3  mb-4">
+        {info.watchProviders && info.watchProviders.flatrate && (
+          <div className="flex items-center gap-5 font-semibold text-white ">
+            <h1>Availbe on Platform </h1>
+
+            {info.watchProviders &&
+              info.watchProviders.flatrate &&
+              info.watchProviders.flatrate.map((w, i) => (
+                <img
+                  title={w.provider_name}
+                  className="w-[5vh] h-[5vh] rounded-md object-cover "
+                  key={i}
+                  src={TMDB_MOVIE_IMAGE + w.logo_path}
+                  at="logopath"
+                />
+              ))}
+          </div>
+        )}
+
+        {info.watchProviders && info.watchProviders.rent && (
+          <div className="flex items-center gap-5 font-semibold text-white">
+            <h1>Availbe on Rent </h1>
+
+            {info.watchProviders &&
+              info.watchProviders.rent &&
+              info.watchProviders.rent.map((w, i) => (
+                <img
+                  title={w.provider_name}
+                  className="w-[5vh] h-[5vh] rounded-md object-cover"
+                  key={i}
+                  src={TMDB_MOVIE_IMAGE + w.logo_path}
+                  at="logopath"
+                />
+              ))}
+          </div>
+        )}
+
+        {info.watchProviders && info.watchProviders.buy && (
+          <div className="flex items-center gap-5 mb-8 font-semibold text-white">
+            <h1>Availbe to buy </h1>
+
+            {info.watchProviders &&
+              info.watchProviders.buy &&
+              info.watchProviders.buy.map((w, i) => (
+                <img
+                  title={w.provider_name}
+                  className="w-[5vh] h-[5vh] rounded-md object-cover"
+                  key={i}
+                  src={TMDB_MOVIE_IMAGE + w.logo_path}
+                  at="logopath"
+                />
+              ))}
+          </div>
+        )}
+      </div>
+      <hr />
+      {/* part 3 end here  */}
+
+      {/* part 4 start here recommendaion and smililart stuff  */}
+
+      <h1 className="pl-6 mt-4 text-2xl font-semibold text-white">Seasons</h1>
+
+      <div className="w-full p-6">
+  <div className="flex w-full pb-5 overflow-x-auto">
+    {info.detail.seasons.map((s, i) => (
+      <div
+        key={i}
+        className="min-w-[50%] lg:min-w-[15%] h-[30vh] lg:h-[55vh]  mr-2  m-1 rounded-md overflow-hidden hover:shadow-lg transition duration-300 ease-in-out"
+      >
+        <img
+          className="w-full h-[80%] object-cover"
+          src={TMDB_MOVIE_IMAGE + s.poster_path}
+          alt="card img"
+        />
+        <div className="text-white p-3 lg:p-2 h-[45%]">
+          <h1 className="text-xl font-bold lg:leading-5 lg:mb-2">
+            {s.original_name || s.name || s.title}
+          </h1>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+
+      {/* part 5 start here recommendaion and smililart stuff  */}
+      <h1 className="pl-6 mt-4 text-2xl font-semibold text-white">
+        Recommendation & Similar{" "}
+      </h1>
+      <HoriZontalcards
+        data={info.recommendations ? info.recommendations : info.similar}
+      />
+      <Outlet />
+    </div>
+  ) : (
+    <Loading />
+  );
+};
+export default TvDetails;

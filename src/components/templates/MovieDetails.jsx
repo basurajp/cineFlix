@@ -67,7 +67,7 @@ const MovieDetails = () => {
       {/* part 2 poster and details  */}
       <div className="flex-col w-full lg:flex-row">
         <img
-          className="h-[33vh] w-full  lg:h-[60vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
+          className="h-[33vh] w-full  lg:h-[60vh] object-contain shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
           src={
             TMDB_MOVIE_IMAGE +
             (info.detail.profile_path ||
