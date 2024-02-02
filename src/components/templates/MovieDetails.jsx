@@ -76,6 +76,21 @@ const MovieDetails = () => {
           }
           alt="image"
         />
+
+        <div className="ml-5 text-white content lg:ml-[5%]">
+
+          
+          <h1 className="text-xl font-black lg:text-5xl ">
+            {info.detail.original_name || info.detail.name || info.detail.title}
+
+            <small className="ml-2 text-[1em] font-semibold text-zinc-200 lg:text-2xl ">
+              ({info.detail.release_date.split("-")[0]})
+            </small>
+          </h1>
+
+
+          
+        </div>
       </div>
 
       {/* part3 avibl on plat form  */}
@@ -98,44 +113,43 @@ const MovieDetails = () => {
               ))}
           </div>
         )}
-    
 
-      {info.watchProviders && info.watchProviders.rent && (
-        <div className="flex items-center gap-5 font-semibold text-white">
-          <h1>Availbe on Rent </h1>
+        {info.watchProviders && info.watchProviders.rent && (
+          <div className="flex items-center gap-5 font-semibold text-white">
+            <h1>Availbe on Rent </h1>
 
-          {info.watchProviders &&
-            info.watchProviders.rent &&
-            info.watchProviders.rent.map((w, i) => (
-              <img
-                title={w.provider_name}
-                className="w-[5vh] h-[5vh] rounded-md object-cover"
-                key={i}
-                src={TMDB_MOVIE_IMAGE + w.logo_path}
-                at="logopath"
-              />
-            ))}
-        </div>
-      )}
+            {info.watchProviders &&
+              info.watchProviders.rent &&
+              info.watchProviders.rent.map((w, i) => (
+                <img
+                  title={w.provider_name}
+                  className="w-[5vh] h-[5vh] rounded-md object-cover"
+                  key={i}
+                  src={TMDB_MOVIE_IMAGE + w.logo_path}
+                  at="logopath"
+                />
+              ))}
+          </div>
+        )}
 
-      {info.watchProviders && info.watchProviders.buy && (
-        <div className="flex items-center gap-5 font-semibold text-white">
-          <h1>Availbe to buy </h1>
+        {info.watchProviders && info.watchProviders.buy && (
+          <div className="flex items-center gap-5 font-semibold text-white">
+            <h1>Availbe to buy </h1>
 
-          {info.watchProviders &&
-            info.watchProviders.buy &&
-            info.watchProviders.buy.map((w, i) => (
-              <img
-                title={w.provider_name}
-                className="w-[5vh] h-[5vh] rounded-md object-cover"
-                key={i}
-                src={TMDB_MOVIE_IMAGE + w.logo_path}
-                at="logopath"
-              />
-            ))}
-        </div>
-      )}
-  </div>
+            {info.watchProviders &&
+              info.watchProviders.buy &&
+              info.watchProviders.buy.map((w, i) => (
+                <img
+                  title={w.provider_name}
+                  className="w-[5vh] h-[5vh] rounded-md object-cover"
+                  key={i}
+                  src={TMDB_MOVIE_IMAGE + w.logo_path}
+                  at="logopath"
+                />
+              ))}
+          </div>
+        )}
+      </div>
       {/* part 3 end here  */}
     </div>
   ) : (
