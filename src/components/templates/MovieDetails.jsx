@@ -1,3 +1,4 @@
+import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import React, { useEffect } from "react";
@@ -12,6 +13,7 @@ const MovieDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     dispatch(asyncLoadMovies(id));
@@ -19,7 +21,7 @@ const MovieDetails = () => {
 
   return info ? (
     <div
-      className="w-screen h-screen px-[10%]  pt-5 "
+      className="w-screen min-h-screen px-[10%]  pt-5 "
       style={{
         background: `linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)) , url(
             ${
@@ -33,7 +35,7 @@ const MovieDetails = () => {
       }}
     >
       {/* part one is done  */}
-      <nav className="flex w-full gap-10 text-2xl text-zinc-100 h-[10vh] info.details-center">
+      <nav className="flex w-full gap-10 text-2xl text-zinc-100 h-[10vh] items-center">
         <Link
           onClick={() => navigate(-1)}
           className="text-2xl mr-2 ri-arrow-left-line hover:text-[#6556CD] duration-100"
@@ -64,9 +66,9 @@ const MovieDetails = () => {
 
       {/* part 2 poster and details  */}
 
-      <div className="flex w-full">
+      <div className="flex-col w-full lg:flex-row">
         <img
-          className="h-[33vh]  lg:h-[50vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
+          className="h-[33vh] w-full  lg:h-[60vh] object-cover shadow-[8px_17px_38px_2px_rgba(0,0,0,.5)]"
           src={
             TMDB_MOVIE_IMAGE +
             (info.detail.profile_path ||
@@ -77,10 +79,8 @@ const MovieDetails = () => {
           alt="image"
         />
 
-        <div className="ml-5 text-white content lg:ml-[5%]">
-
-          
-          <h1 className="text-xl font-black lg:text-5xl ">
+        <div className="text-white content">
+          <h1 className="mt-2 text-3xl font-black lg:text-5xl ">
             {info.detail.original_name || info.detail.name || info.detail.title}
 
             <small className="ml-2 text-[1em] font-semibold text-zinc-200 lg:text-2xl ">
@@ -88,8 +88,32 @@ const MovieDetails = () => {
             </small>
           </h1>
 
+          <div className="flex flex-wrap items-center gap-2 mt-2 mb-10 text-white">
+            <span>
+              {info.detail.vote_average && (
+                <div className="text-white text-xl w-[2vh] h-[2vh] p-7  rounded-full font-semibold flex justify-center items-center bg-yellow-600 -right-[6%] lg:-right-[15%]  bottom-[45%]">
+                  {(info.detail.vote_average * 10).toFixed()} <sup>%</sup>
+                </div>
+              )}
+            </span>
 
-          
+            <h1> User Score </h1>
+            <h1>{info.detail.release_date}</h1>
+            <h1>{info.detail.genres.map((g, i) => g.name).join(",")}</h1>
+            <h1>{info.detail.runtime} min</h1>
+          </div>
+
+          <Link
+            to={`${pathname}/trailer`}
+            className="py-5 bg-[#6556cd] rounded-lg px-10"
+          >
+            <i class="ri-play-fill mr-2"></i>Play Trailer{" "}
+          </Link>
+
+          <h1 className="mt-10 text-xl font-semibold">{info.detail.tagline}</h1>
+
+          <h1 className="text-xl font-semibold ">Overview</h1>
+          <p>{info.detail.overview}</p>
         </div>
       </div>
 
