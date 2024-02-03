@@ -1,5 +1,5 @@
 import React from "react";
-import notfound from "../../../public/Notfound.gif";
+import notfound from "../../assets/notfound.gif";
 
 const Notfound = () => {
   return (
